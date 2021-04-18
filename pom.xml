@@ -4,7 +4,7 @@
 
 	<groupId>com.github.qqxadyy</groupId>
 	<artifactId>pjq-parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>pjq-parent</name>
 	<description>pjq-parent</description>
@@ -35,20 +35,22 @@
 		<skipTests>true</skipTests>
 
 		<!-- 这里定义的版本号可以覆盖传递依赖中有的版本号 -->
-		<qqxady.commons.utils.version>1.0.0-SNAPSHOT</qqxady.commons.utils.version>
+		<qqxady.commons.utils.version>1.1.0-SNAPSHOT</qqxady.commons.utils.version>
 		<lombok.version>1.18.18</lombok.version>
-		<apache.commons.lang3.version>3.11</apache.commons.lang3.version>
+		<apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
 		<apache.commons.collection4.version>4.4</apache.commons.collection4.version>
 		<apache.commons.codec.version>1.15</apache.commons.codec.version>
 		<apache.commons.logging.version>1.2</apache.commons.logging.version>
+		<apache.commons.bean-utils.version>1.9.4</apache.commons.bean-utils.version>
 		<apache.tika.version>2.0.0-ALPHA</apache.tika.version>
-		<alibaba.json.version>1.2.75</alibaba.json.version>
-		<caffeine.version>2.8.8</caffeine.version>
+		<alibaba.json.version>1.2.76</alibaba.json.version>
+		<caffeine.version>2.9.0</caffeine.version>
 		<slf4j.version>2.0.0-alpha1</slf4j.version>
 		<okhttp.version>4.10.0-RC1</okhttp.version>
 		<okio.version>2.9.0</okio.version>
 		<kotlin.stdlib.version>1.4.10</kotlin.stdlib.version>
 		<java.wsrs.api.version>2.1.1</java.wsrs.api.version>
+		<google.guava.version>30.1.1-jre</google.guava.version>
 
 		<!-- 插件版本 -->
 		<plugin.maven-compiler.version>3.8.1</plugin.maven-compiler.version>
@@ -56,9 +58,9 @@
 		<plugin.maven-source.version>3.2.1</plugin.maven-source.version>
 		<plugin.maven-javadoc.version>3.2.0</plugin.maven-javadoc.version>
 		<plugin.maven-gpg.version>1.6</plugin.maven-gpg.version>
-		<plugin.maven-release.version>3.0.0-M1</plugin.maven-release.version>
+		<plugin.maven-release.version>3.0.0-M4</plugin.maven-release.version>
 		<plugin.nexus-staging.version>1.6.8</plugin.nexus-staging.version>
-		<plugin.mycila.license>4.0.rc2</plugin.mycila.license>
+		<plugin.mycila.license>4.0</plugin.mycila.license>
 	</properties>
 
 	<dependencyManagement>
@@ -74,13 +76,6 @@
 				<groupId>org.apache.tika</groupId>
 				<artifactId>tika-core</artifactId>
 				<version>${apache.tika.version}</version>
-			</dependency>
-
-			<!-- 阿里json包 -->
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>${alibaba.json.version}</version>
 			</dependency>
 
 			<!-- caffeine缓存 -->
@@ -145,6 +140,12 @@
 			<artifactId>commons-logging</artifactId>
 			<version>${apache.commons.logging.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${apache.commons.bean-utils.version}</version>
+		</dependency>
+
 
 		<!-- 日志相关包 -->
 		<dependency>
@@ -158,6 +159,20 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- 阿里json包 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${alibaba.json.version}</version>
+		</dependency>
+
+		<!-- google guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${google.guava.version}</version>
 		</dependency>
 	</dependencies>
 
