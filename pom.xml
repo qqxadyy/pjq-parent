@@ -21,8 +21,8 @@
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:https://github.com/qqxadyy/pjq-parent.git</connection>
-		<developerConnection>scm:git:https://github.com/qqxadyy/pjq-parent.git</developerConnection>
+		<connection>scm:git:https://gitee.com/qqxadyy/pjq-parent.git</connection>
+		<developerConnection>scm:git:https://gitee.com/qqxadyy/pjq-parent.git</developerConnection>
 		<url>https://github.com/qqxadyy/pjq-parent</url>
 		<tag>HEAD</tag>
 	</scm>
@@ -34,7 +34,7 @@
 		<skipTests>true</skipTests>
 
 		<!-- 这里定义的版本号可以覆盖传递依赖中有的版本号 -->
-		<qqxady.commons.utils.version>1.2.0</qqxady.commons.utils.version>
+		<qqxady.commons.utils.version>1.2.1</qqxady.commons.utils.version>
 		<lombok.version>1.18.18</lombok.version>
 		<apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
 		<apache.commons.collection4.version>4.4</apache.commons.collection4.version>
