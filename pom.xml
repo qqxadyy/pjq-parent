@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 	<name>pjq-parent</name>
 	<description>pjq-parent</description>
-	<inceptionYear>2021</inceptionYear>
+	<inceptionYear>2023</inceptionYear>
 	<url>https://github.com/qqxadyy/pjq-parent</url>
 	<licenses>
 		<license>
@@ -43,12 +43,12 @@
 		<apache.commons.bean-utils.version>1.9.4</apache.commons.bean-utils.version>
 		<apache.tika.version>2.4.1</apache.tika.version>
 		<alibaba.fastjson.version>1.2.83</alibaba.fastjson.version>
-		<caffeine.version>2.9.3</caffeine.version> <!-- java11以下用2.9.x -->
-		<slf4j.version>2.0.0-alpha7</slf4j.version>
+		<caffeine.version>2.9.3</caffeine.version> <!-- 本地缓存caffeine，java11以下用2.9.x -->
+		<slf4j.version>2.0.7</slf4j.version>
 		<okhttp.version>4.10.0</okhttp.version>
 		<okio.version>3.2.0</okio.version> <!-- 基本和okhttp中依赖的保持一致 -->
 		<kotlin.stdlib.version>1.7.0</kotlin.stdlib.version> <!-- okio需要引入 -->
-		<jakarta.wsrs.api.version>3.0.0</jakarta.wsrs.api.version>
+		<jakarta.wsrs.api.version>3.1.0</jakarta.wsrs.api.version>
 		<google.guava.version>31.1-jre</google.guava.version>
 
 		<!-- 插件版本 -->
@@ -57,7 +57,7 @@
 		<plugin.maven-source.version>3.2.1</plugin.maven-source.version>
 		<plugin.maven-javadoc.version>3.4.0</plugin.maven-javadoc.version>
 		<plugin.maven-gpg.version>1.6</plugin.maven-gpg.version> <!-- 不要升级到3.X版本，在mvn release:perform步骤会报错"signing failed: No pinentry" -->
-		<plugin.maven-release.version>3.0.0-M6</plugin.maven-release.version>
+		<plugin.maven-release.version>3.0.0</plugin.maven-release.version>
 		<plugin.nexus-staging.version>1.6.13</plugin.nexus-staging.version>
 		<plugin.mycila.license>4.2.rc3</plugin.mycila.license>
 	</properties>
