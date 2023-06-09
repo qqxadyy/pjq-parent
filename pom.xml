@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.qqxadyy</groupId>
@@ -34,7 +36,10 @@
 		<skipTests>true</skipTests>
 
 		<!-- 这里定义的版本号可以覆盖传递依赖中有的版本号 -->
-		<qqxady.commons.utils.version>1.3.2</qqxady.commons.utils.version>
+		<pjq.commons-utils.version>1.3.3-SNAPSHOT</pjq.commons-utils.version>
+		<pjq.spring-boot-starter.version>1.0.0-SNAPSHOT</pjq.spring-boot-starter.version>
+		<spring-boot.version>2.7.6</spring-boot.version>
+		<spring-cloud.version>2021.0.5</spring-cloud.version>
 		<lombok.version>1.18.24</lombok.version>
 		<apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
 		<apache.commons.collection4.version>4.4</apache.commons.collection4.version>
@@ -48,8 +53,12 @@
 		<okhttp.version>4.10.0</okhttp.version>
 		<okio.version>3.2.0</okio.version> <!-- 基本和okhttp中依赖的保持一致 -->
 		<kotlin.stdlib.version>1.7.0</kotlin.stdlib.version> <!-- okio需要引入 -->
-		<jakarta.wsrs.api.version>3.1.0</jakarta.wsrs.api.version>
 		<google.guava.version>31.1-jre</google.guava.version>
+
+		<!-- swagger2 + knife4j的ui模块 -->
+		<swagger2.version>3.0.0</swagger2.version>
+		<spring-plugin.version>2.0.0.RELEASE</spring-plugin.version>
+		<knife4j.version>4.0.0</knife4j.version>
 
 		<!-- 插件版本 -->
 		<plugin.maven-compiler.version>3.10.1</plugin.maven-compiler.version>
@@ -64,10 +73,42 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!--spring cloud dependencies -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!--spring boot dependencies -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- 自己整理组件的版本 -->
 			<dependency>
 				<groupId>com.github.qqxadyy</groupId>
 				<artifactId>pjq-commons-utils</artifactId>
-				<version>${qqxady.commons.utils.version}</version>
+				<version>${pjq.commons-utils.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.qqxadyy</groupId>
+				<artifactId>pjq-spring-boot-starter</artifactId>
+				<version>${pjq.spring-boot-starter.version}</version>
+			</dependency>
+
+			<dependency>
+				<!-- 有log4j等具体的日志实现时，不需要引入slf4j-simple -->
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-simple</artifactId>
+				<version>${slf4j.version}</version>
+				<optional>true</optional>
 			</dependency>
 
 			<!-- apache tika -->
@@ -106,10 +147,41 @@
 				<version>${kotlin.stdlib.version}</version>
 			</dependency>
 
+			<!-- swagger2 + knife4j的ui模块 -->
 			<dependency>
-				<groupId>jakarta.ws.rs</groupId>
-				<artifactId>jakarta.ws.rs-api</artifactId>
-				<version>${jakarta.wsrs.api.version}</version>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${swagger2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-common</artifactId>
+				<version>${swagger2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>${swagger2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-boot-starter</artifactId>
+				<version>${swagger2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.plugin</groupId>
+				<artifactId>spring-plugin-core</artifactId>
+				<version>${spring-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.plugin</groupId>
+				<artifactId>spring-plugin-metadata</artifactId>
+				<version>${spring-plugin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-openapi2-ui</artifactId>
+				<version>${knife4j.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -150,19 +222,11 @@
 			<version>${apache.commons.bean-utils.version}</version>
 		</dependency>
 
-
 		<!-- 日志相关包 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<!-- 有log4j等具体的日志实现时，排除引入slf4j-simple -->
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- 阿里json包 -->
