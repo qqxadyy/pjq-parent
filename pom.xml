@@ -35,8 +35,8 @@
 		<skipTests>true</skipTests>
 
 		<!-- 这里定义的版本号可以覆盖传递依赖中有的版本号 -->
-		<pjq.commons-utils.version>1.4.4</pjq.commons-utils.version>
-		<pjq.spring-boot-starter.version>1.0.3</pjq.spring-boot-starter.version>
+		<pjq.commons-utils.version>1.4.5</pjq.commons-utils.version>
+		<pjq.spring-boot-starter.version>1.0.4</pjq.spring-boot-starter.version>
 		<spring-boot.version>2.7.6</spring-boot.version>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
 		<lombok.version>1.18.24</lombok.version>
