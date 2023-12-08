@@ -39,7 +39,7 @@
 		<pjq.spring-boot-starter.version>1.1.0-SNAPSHOT</pjq.spring-boot-starter.version>
 		<spring-boot.version>2.7.6</spring-boot.version>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
-		<lombok.version>1.18.24</lombok.version>
+		<lombok.version>1.18.30</lombok.version>
 		<apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
 		<apache.commons.collection4.version>4.4</apache.commons.collection4.version>
 		<apache.commons.codec.version>1.16.0</apache.commons.codec.version>
