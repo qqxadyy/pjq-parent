@@ -4,7 +4,7 @@
 
 	<groupId>com.github.qqxadyy</groupId>
 	<artifactId>pjq-parent</artifactId>
-	<version>1.5.1-SNAPSHOT</version>
+	<version>1.5.1</version>
 	<packaging>pom</packaging>
 	<name>pjq-parent</name>
 	<description>pjq-parent</description>
@@ -71,7 +71,7 @@
 		<plugin.maven-javadoc.version>3.4.0</plugin.maven-javadoc.version>
 		<plugin.maven-gpg.version>1.6</plugin.maven-gpg.version> <!-- 不要升级到3.X版本，在mvn release:perform步骤会报错"signing failed: No pinentry" -->
 		<plugin.maven-release.version>3.0.0</plugin.maven-release.version>
-		<plugin.nexus-staging.version>1.6.13</plugin.nexus-staging.version>
+		<plugin.central-publishing.version>0.12.0</plugin.central-publishing.version> <!-- 新版maven中央库发布插件已不使用nexus-staging-maven-plugin -->
 		<plugin.mycila.license>4.2.rc3</plugin.mycila.license>
 	</properties>
 
@@ -321,10 +321,10 @@
 					<version>${plugin.maven-gpg.version}</version>
 				</plugin>
 				<plugin>
-					<!-- 自动提交到sonatype审批发布 -->
-					<groupId>org.sonatype.plugins</groupId>
-					<artifactId>nexus-staging-maven-plugin</artifactId>
-					<version>${plugin.nexus-staging.version}</version>
+					<!-- Central Portal 官方发布插件 -->
+					<groupId>org.sonatype.central</groupId>
+					<artifactId>central-publishing-maven-plugin</artifactId>
+					<version>${plugin.central-publishing.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -356,14 +356,17 @@
 			</plugin>
 
 			<plugin>
-				<!-- 自动提交到sonatype审批发布 -->
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
 				<extensions>true</extensions>
 				<configuration>
-					<serverId>sonatype-nexus</serverId> <!-- 和settings.xml里面的server配置一致，还有distributionManagement也是 -->
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+					<!-- 与 settings.xml 中 server id 一致 -->
+					<publishingServerId>sonatype-central</publishingServerId>
+					<!-- 首次发布建议 false：上传+校验后在 Portal 手动点 Publish，可先人工检查/丢弃 -->
+					<!-- 稳定后改 false改成true -->
+					<autoPublish>true</autoPublish>
+					<waitUntil>validated</waitUntil>
+					<deploymentName>${project.artifactId}-${project.version}</deploymentName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -380,13 +383,10 @@
 	</build>
 
 	<distributionManagement>
+		<!-- 只保留快照仓库；release正式版 由 central-publishing 插件以 bundle 上传，不需要 repository -->
 		<snapshotRepository>
-			<id>sonatype-nexus</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<id>sonatype-central</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
 		</snapshotRepository>
-		<repository>
-			<id>sonatype-nexus</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-		</repository>
 	</distributionManagement>
 </project>
