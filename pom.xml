@@ -4,7 +4,7 @@
 
 	<groupId>com.github.qqxadyy</groupId>
 	<artifactId>pjq-parent</artifactId>
-	<version>1.5.1</version>
+	<version>1.5.2</version>
 	<packaging>pom</packaging>
 	<name>pjq-parent</name>
 	<description>pjq-parent</description>
@@ -35,8 +35,8 @@
 		<skipTests>true</skipTests>
 
 		<!-- 这里定义的版本号可以覆盖传递依赖中有的版本号 -->
-		<pjq.commons-utils.version>1.5.1</pjq.commons-utils.version>
-		<pjq.spring-boot-starter.version>1.1.1</pjq.spring-boot-starter.version>
+		<pjq.commons-utils.version>1.5.2</pjq.commons-utils.version>
+		<pjq.spring-boot-starter.version>1.1.2</pjq.spring-boot-starter.version>
 		<spring-boot.version>2.7.6</spring-boot.version>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
 		<lombok.version>1.18.30</lombok.version>
@@ -69,8 +69,7 @@
 		<plugin.maven-jar.version>3.2.2</plugin.maven-jar.version>
 		<plugin.maven-source.version>3.2.1</plugin.maven-source.version>
 		<plugin.maven-javadoc.version>3.4.0</plugin.maven-javadoc.version>
-		<plugin.maven-gpg.version>1.6</plugin.maven-gpg.version> <!-- 不要升级到3.X版本，在mvn release:perform步骤会报错"signing failed: No pinentry" -->
-		<plugin.maven-release.version>3.0.0</plugin.maven-release.version>
+		<plugin.maven-gpg.version>3.2.8</plugin.maven-gpg.version>
 		<plugin.central-publishing.version>0.12.0</plugin.central-publishing.version> <!-- 新版maven中央库发布插件已不使用nexus-staging-maven-plugin -->
 		<plugin.mycila.license>4.2.rc3</plugin.mycila.license>
 	</properties>
@@ -327,11 +326,6 @@
 					<version>${plugin.central-publishing.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>${plugin.maven-release.version}</version>
-				</plugin>
-				<plugin>
 					<groupId>com.mycila</groupId>
 					<artifactId>license-maven-plugin</artifactId>
 					<version>${plugin.mycila.license}</version>
@@ -363,20 +357,11 @@
 					<!-- 与 settings.xml 中 server id 一致 -->
 					<publishingServerId>sonatype-central</publishingServerId>
 					<!-- 首次发布建议 false：上传+校验后在 Portal 手动点 Publish，可先人工检查/丢弃 -->
-					<!-- 稳定后改 false改成true -->
+					<!-- 稳定后改 autoPublish的false改成true(false的话需要到中央库的控制台手动操作Publish，可以先用false验证打包上传是否有问题，有问题的话可以Drop掉，没问题就可以改成true自动Publish) -->
+					<!-- waitUntil不要用published，否则deploy命令要等待发布成功才会结束(10至30分钟) -->
 					<autoPublish>true</autoPublish>
 					<waitUntil>validated</waitUntil>
 					<deploymentName>${project.artifactId}-${project.version}</deploymentName>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -384,6 +369,7 @@
 
 	<distributionManagement>
 		<!-- 只保留快照仓库；release正式版 由 central-publishing 插件以 bundle 上传，不需要 repository -->
+		<!-- 开启SNAPSHOT版本发布功能：登录https://central.sonatype.com/->右上角 view namespaces->找到要发布的组件->更多那里 Enable SNAPSHOTs 开启功能，然后在version版本号后面加上"-SNAPSHOT"->再deploy发布即可 -->
 		<snapshotRepository>
 			<id>sonatype-central</id>
 			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
